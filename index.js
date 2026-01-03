@@ -19,6 +19,12 @@ userRouter.post("/", (req, res) => {
 userRouter.get("/", (req, res) => {
     return res.status(200).json({results:users})
 })
+//search by name
+userRouter.get("/search", (req, res) => {
+    const {name}=req.query
+    const filteredUser=users.find((user)=>user.name==name)
+    !filteredUser?res.status(404).json({message:"user not found"}) : res.status(200).json({results:filteredUser})
+})
 //get user
 userRouter.get("/:id", (req, res) => {
     const {id}=req.params 
